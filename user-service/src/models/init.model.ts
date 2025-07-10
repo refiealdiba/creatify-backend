@@ -28,6 +28,7 @@ export async function initUserTable() {
 
         // masukkan 1 user dummy
         await db.query(insertDummyUserSQL, [
+            1,
             "JohnDoe",
             "johndoe@gmail.com",
             "08123456789",
