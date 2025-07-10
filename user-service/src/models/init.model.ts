@@ -18,7 +18,7 @@ export async function initUserTable() {
 
     const insertDummyUserSQL = `
     INSERT INTO users (id, name, email, no_telp, password, role)
-    VALUES (?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?, ?, ?)
     `;
 
     try {
