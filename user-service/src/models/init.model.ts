@@ -32,7 +32,7 @@ export async function initUserTable() {
             "johndoe@gmail.com",
             "08123456789",
             "rahasia123",
-            "freelancer",
+            "0",
         ]);
 
         console.log("✅ Dummy user berhasil dimasukkan.");
