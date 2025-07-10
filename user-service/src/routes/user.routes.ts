@@ -5,7 +5,7 @@ import { upload } from "../middlewares/upload.middleware"; // Assuming you have 
 
 const userRouter = Router();
 
-userRouter.get("/detail", authenticateToken, detailUser);
+userRouter.post("/detail", authenticateToken, detailUser);
 userRouter.patch("/detail", authenticateToken, upload.single("profile_image"), updateUser);
 
 export default userRouter;
