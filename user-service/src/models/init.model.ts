@@ -8,7 +8,7 @@ export async function initUserTable() {
         email VARCHAR(100) NOT NULL UNIQUE,
         no_telp VARCHAR(20) NOT NULL UNIQUE,
         password VARCHAR(255) NOT NULL,
-        role ENUM('freelancer', 'client') NOT NULL DEFAULT 'client',
+        role ENUM('0', '1') NOT NULL DEFAULT 'client',
         bio TEXT,
         profile_image VARCHAR(255),
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
