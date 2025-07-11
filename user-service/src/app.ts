@@ -5,6 +5,7 @@ import { testDbConnection } from "./config/db";
 // import { initUserTable } from "./models/init.model";
 import authRouter from "./routes/user.auth.routes";
 import userRouter from "./routes/user.routes";
+import portofolioRouter from "./routes/user.portofolio.routes";
 
 dotenv.config();
 const app = express();
@@ -20,6 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/uploads", express.static("uploads"));
 app.use("/auth", authRouter);
 app.use("/me", userRouter);
+app.use("/portofolio", portofolioRouter); // Assuming you have a portofolio router
 
 testDbConnection();
 // initUserTable();
