@@ -28,7 +28,7 @@ export const registerUser = async (req: Request, res: Response) => {
 
         const [result] = await db.query(
             `INSERT INTO users (name, email, no_telp, password, role)
-            VALUES (?, ?, ?, ?)`,
+            VALUES (?, ?, ?, ?, ?)`,
             [name, email, no_telp, password, role]
         );
 
