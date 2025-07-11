@@ -10,7 +10,7 @@ dotenv.config();
 const JWT_SECRET = process.env.JWT_KEY as string;
 
 export const registerUser = async (req: Request, res: Response) => {
-    const { name, email, password, role } = req.body;
+    const { name, email, no_telp, password, role } = req.body;
 
     if (!name || !email || !password) {
         return res.status(400).json({ message: "Semua field harus diisi" });
@@ -27,9 +27,9 @@ export const registerUser = async (req: Request, res: Response) => {
         }
 
         const [result] = await db.query(
-            `INSERT INTO users (name, email, password, role)
+            `INSERT INTO users (name, email, no_telp, password, role)
             VALUES (?, ?, ?, ?)`,
-            [name, email, password, role]
+            [name, email, no_telp, password, role]
         );
 
         res.status(201).json({
