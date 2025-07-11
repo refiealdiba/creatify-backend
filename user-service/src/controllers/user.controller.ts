@@ -27,8 +27,7 @@ export const updateUser = async (req: AuthRequest, res: Response) => {
     const { name, bio } = req.body;
     const profileImageFilename = req.file?.filename;
 
-    // Ganti ini dengan URL asli API kamu
-    const BASE_URL = process.env.BASE_URL || "http://localhost:3000";
+    const BASE_URL = process.env.BASE_URL;
 
     // Buat URL lengkap jika ada file
     const profileImageUrl = profileImageFilename
