@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { testDbConnection } from "./config/db";
-import { initUserTable } from "./models/init.model";
+// import { initUserTable } from "./models/init.model";
 import authRouter from "./routes/user.auth.routes";
 import userRouter from "./routes/user.routes";
 
@@ -22,6 +22,6 @@ app.use("/auth", authRouter);
 app.use("/me", userRouter);
 
 testDbConnection();
-initUserTable();
+// initUserTable();
 
 export default app;
