@@ -64,7 +64,16 @@ export const loginUser = async (req: Request, res: Response) => {
             return res.status(401).json({ message: "Password salah" });
         }
 
-        const token = jwt.sign({ id: user.id, email: user.email, role: user.role }, JWT_SECRET);
+        const token = jwt.sign(
+            {
+                id: user.id,
+                email: user.email,
+                name: user.name,
+                profile_image: user.profile_image,
+                role: user.role,
+            },
+            JWT_SECRET
+        );
 
         const { password: _, ...userWithoutPassword } = user;
 
