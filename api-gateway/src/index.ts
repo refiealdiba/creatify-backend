@@ -14,21 +14,21 @@ const reviewService = process.env.REVIEW_SERVICE_URL;
 
 // Proxy setup
 app.use(
-    "/api/user",
+    "/api-user",
     createProxyMiddleware({
         target: userService!,
         changeOrigin: true,
     })
 );
 app.use(
-    "/api/payment",
+    "/api-payment",
     createProxyMiddleware({
         target: paymentService!,
         changeOrigin: true,
     })
 );
 app.use(
-    "/api/order",
+    "/api-order",
     createProxyMiddleware({
         target: orderService!,
         changeOrigin: true,
