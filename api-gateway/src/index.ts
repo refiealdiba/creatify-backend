@@ -13,6 +13,7 @@ const orderService = process.env.ORDER_SERVICE_URL;
 const reviewService = process.env.REVIEW_SERVICE_URL;
 const gigBenefitService = process.env.GIG_BENEFIT_SERVICE_URL;
 const gigPackageService = process.env.GIG_PACKAGE_SERVICE_URL;
+const gigService = process.env.GIG_SERVICE_URL;
 
 // Proxy setup
 app.use(
@@ -54,6 +55,13 @@ app.use(
     "/api-gig-package",
     createProxyMiddleware({
         target: gigPackageService!,
+        changeOrigin: true,
+    })
+);
+app.use(
+    "/api-gig",
+    createProxyMiddleware({
+        target: gigService!,
         changeOrigin: true,
     })
 );
