@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
     getGigs,
     getGigById,
+    getGigsByCategoryId,
     createGig,
     updateGig,
     deleteGig,
@@ -13,6 +14,7 @@ const gigRouter = Router();
 
 gigRouter.get("/", getGigs);
 gigRouter.get("/:id", getGigById);
+gigRouter.get("/bycategory/:categoryId", getGigsByCategoryId);
 gigRouter.post("/", authenticateToken, upload.array("images", 5), createGig);
 gigRouter.patch("/:id", authenticateToken, upload.array("images", 5), updateGig);
 gigRouter.delete("/:id", authenticateToken, deleteGig);

@@ -182,6 +182,97 @@ export async function getGigById(req: Request, res: Response) {
     }
 }
 
+export async function getGigsByCategoryId(req: Request, res: Response) {
+    const categoryId = Number(req.params.categoryId);
+
+    if (!categoryId) {
+        return res.status(400).json({ message: "ID kategori tidak valid." });
+    }
+
+    try {
+        // Ambil semua gig berdasarkan kategori
+        const [gigResults] = await db.query<Gig[]>(
+            `SELECT * FROM gigs WHERE category_id = ? ORDER BY created_at DESC`,
+            [categoryId]
+        );
+
+        const gigIdList = gigResults.map((gig) => gig.id);
+
+        if (gigIdList.length === 0) {
+            return res.json([]); // tidak ada gig
+        }
+
+        // Ambil semua gambar
+        const [imageResults] = await db.query<GigImage[]>(
+            `SELECT * FROM gig_images WHERE gig_id IN (?)`,
+            [gigIdList]
+        );
+
+        // Ambil semua packages
+        const [packageResults] = await db.query<GigPackage[]>(
+            `SELECT * FROM packages WHERE gig_id IN (?)`,
+            [gigIdList]
+        );
+
+        const packageIdList = packageResults.map((pkg) => pkg.id);
+
+        // Ambil semua benefit
+        const [benefitResults] =
+            packageIdList.length > 0
+                ? await db.query<GigPackageBenefit[]>(
+                      `SELECT * FROM package_benefits WHERE package_id IN (?)`,
+                      [packageIdList]
+                  )
+                : [[]];
+
+        // Gabungkan data
+        const formattedGigs = gigResults.map((gig) => {
+            const images = imageResults
+                .filter((img) => img.gig_id === gig.id)
+                .map((img) => img.image_url);
+
+            const packages = packageResults
+                .filter((pkg) => pkg.gig_id === gig.id)
+                .map((pkg) => {
+                    const benefits = benefitResults
+                        .filter((benefit) => benefit.package_id === pkg.id)
+                        .map((benefit) => benefit.benefit);
+
+                    return {
+                        id: pkg.id,
+                        name: pkg.name,
+                        description: pkg.description,
+                        price: pkg.price,
+                        delivery_time: pkg.delivery_time,
+                        revisions: pkg.revisions,
+                        benefits,
+                        created_at: pkg.created_at,
+                        updated_at: pkg.updated_at,
+                    };
+                });
+
+            return {
+                id: gig.id,
+                user_id: gig.user_id,
+                title: gig.title,
+                description: gig.description,
+                category_id: gig.category_id,
+                price: gig.price,
+                delivery_time: gig.delivery_time,
+                created_at: gig.created_at,
+                updated_at: gig.updated_at,
+                images,
+                packages,
+            };
+        });
+
+        res.json(formattedGigs);
+    } catch (error) {
+        console.error("Error getGigsByCategoryId:", error);
+        res.status(500).json({ message: "Gagal mengambil data gig berdasarkan kategori." });
+    }
+}
+
 export async function createGig(req: AuthRequest, res: Response) {
     const {
         title,
