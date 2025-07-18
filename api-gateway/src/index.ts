@@ -14,7 +14,6 @@ const reviewService = process.env.REVIEW_SERVICE_URL;
 const gigService = process.env.GIG_SERVICE_URL;
 const categoryService = process.env.CATEGORY_SERVICE_URL;
 
-// Proxy setup
 app.use(
     "/api-user",
     createProxyMiddleware({
