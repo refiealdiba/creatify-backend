@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import { testDbConnection } from "./config/db";
 import gigRouter from "./routes/gig.route";
-// import { initDatabase } from "./models/init.model";
+import { initDatabase } from "./models/init.model";
 
 const app = express();
 
@@ -18,6 +18,6 @@ app.use("/uploads", express.static("uploads"));
 app.use("/gigs", gigRouter);
 
 testDbConnection();
-// initDatabase();
+initDatabase();
 
 export default app;
